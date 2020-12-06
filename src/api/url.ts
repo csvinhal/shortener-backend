@@ -40,7 +40,7 @@ export default (app: Router) => {
     }
   });
 
-  app.use((error: any, req: Request, res: Response) => {
+  app.use((error: any, _: Request, res: Response) => {
     if (error.status) {
       res.status(error.status);
     } else {
