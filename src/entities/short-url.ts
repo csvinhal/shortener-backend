@@ -1,5 +1,5 @@
 import { Either, left, right } from "../shared/either"
-import { ShortUrlData } from "./short-url-data"
+import { IShortUrlData } from "./ishort-url-data"
 
 export class ShortUrl {
     public readonly slug: string
@@ -11,7 +11,7 @@ export class ShortUrl {
         Object.freeze(this)
     }
 
-    static create(urlData: ShortUrlData): Either<Error, ShortUrl> {
+    static create(urlData: IShortUrlData): Either<Error, ShortUrl> {
         const {slug, url} = urlData
 
         if (!url) {

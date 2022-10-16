@@ -9,4 +9,4 @@ const createShortUrlController = new CreateShortUrlController(
   createShortUrlUseCase
 );
 
-export { createShortUrlUseCase, createShortUrlController };
+export { createShortUrlController };

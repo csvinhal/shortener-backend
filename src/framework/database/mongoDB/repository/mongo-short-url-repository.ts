@@ -1,5 +1,5 @@
+import { IShortUrlData } from "../../../../entities/ishort-url-data";
 import { ShortUrl } from "../../../../entities/short-url";
-import { ShortUrlData } from "../../../../entities/short-url-data";
 import { IShortUrlRepository } from "../../../../repositories/ishort-url-repository";
 import ShortUrlModel from "../models/short-url";
 
@@ -10,9 +10,10 @@ export class MongoShortUrlRepository implements IShortUrlRepository {
     return shortUrl ? true : false;
   }
 
-  async create(shortUrl: ShortUrlData): Promise<ShortUrl> {
+  async create(shortUrl: IShortUrlData): Promise<IShortUrlData> {
     const created = await ShortUrlModel.create(shortUrl);
     return {
+      id: created._id,
       slug: created.slug,
       url: created.url,
     };
