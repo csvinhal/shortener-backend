@@ -4,8 +4,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'airbnb',
-    'airbnb-typescript',
+    'standard-with-typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
@@ -14,7 +13,16 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint', 'prettier'],
-  rules: {},
+  rules: {
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: false,
+      },
+    ],
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+  },
 }

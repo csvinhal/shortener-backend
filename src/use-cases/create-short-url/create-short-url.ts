@@ -6,7 +6,7 @@ import { ICreateShortUrl } from './icreate-short-url'
 import { ICreateShortUrlDto } from './icreate-short-url-dto'
 
 export class CreateShortUrl implements ICreateShortUrl {
-  constructor(private shortUrlRepository: IShortUrlRepository) {}
+  constructor(private readonly shortUrlRepository: IShortUrlRepository) {}
 
   async execute(data: ICreateShortUrlDto): Promise<CreateShortUrlResponse> {
     const { slug } = data

@@ -7,13 +7,12 @@ export class MongoShortUrlRepository implements IShortUrlRepository {
   async slugExists(slug: string): Promise<boolean> {
     const shortUrl = await ShortUrlModel.findOne({ slug })
 
-    return shortUrl ? true : false
+    return shortUrl != null
   }
 
   async create(shortUrl: IShortUrlData): Promise<IShortUrlData> {
     const created = await ShortUrlModel.create(shortUrl)
     return {
-      id: created._id,
       slug: created.slug,
       url: created.url,
     }
@@ -22,7 +21,7 @@ export class MongoShortUrlRepository implements IShortUrlRepository {
   async findBySlug(slug: string): Promise<ShortUrl | null> {
     const shortUrl = await ShortUrlModel.findOne({ slug })
 
-    if (shortUrl) {
+    if (shortUrl != null) {
       return {
         slug: shortUrl.slug,
         url: shortUrl.url,

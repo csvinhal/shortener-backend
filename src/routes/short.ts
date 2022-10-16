@@ -6,7 +6,7 @@ import { MongoShortUrlRepository } from '../framework/database/mongoDB/repositor
 import { CreateShortUrl } from '../use-cases/create-short-url/create-short-url'
 import { GetShortUrl } from '../use-cases/get-short-url/get-short-url'
 
-export default (app: Router) => {
+export default (app: Router): void => {
   const shortUrlRepository = new MongoShortUrlRepository()
 
   const createShortUrlUseCase = new CreateShortUrl(shortUrlRepository)
@@ -22,14 +22,14 @@ export default (app: Router) => {
   )
 
   app.get('/short/:slug', async (req: Request, res: Response) => {
-    getShortUrlController.handle(req, res)
+    await getShortUrlController.handle(req, res)
   })
 
   app.get('/short/redirect/:slug', async (req: Request, res: Response) => {
-    redirectShortUrlController.handle(req, res)
+    await redirectShortUrlController.handle(req, res)
   })
 
   app.post('/short', async (req: Request, res: Response) => {
-    createShortUrlController.handle(req, res)
+    await createShortUrlController.handle(req, res)
   })
 }

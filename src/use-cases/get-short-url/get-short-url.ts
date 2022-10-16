@@ -4,12 +4,12 @@ import { GetShortUrlResponse } from './get-short-url-response'
 import { IGetShortUrl } from './iget-short-url'
 
 export class GetShortUrl implements IGetShortUrl {
-  constructor(private shortUrlRepository: IShortUrlRepository) {}
+  constructor(private readonly shortUrlRepository: IShortUrlRepository) {}
 
   async execute(slug: string): Promise<GetShortUrlResponse> {
     const shotUrl = await this.shortUrlRepository.findBySlug(slug)
 
-    if (!shotUrl) {
+    if (shotUrl == null) {
       return left(new Error('Url not found'))
     }
 

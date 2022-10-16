@@ -2,14 +2,14 @@ import express from 'express'
 import env from './config/envs'
 import setupMiddleware from './config/middleware'
 import setupRoutes from './config/routes'
-import { MongoConnection } from './framework/database/mongoDB/mongo-connection'
+import MongoConnection from './framework/database/mongoDB/mongo-connection'
 
-async function startServer() {
+async function startServer(): Promise<void> {
   const app = express()
   setupMiddleware(app)
   setupRoutes(app)
 
-  await MongoConnection.connect()
+  await MongoConnection().connect()
 
   app
     .listen(env.port, () => {
@@ -21,4 +21,5 @@ async function startServer() {
     })
 }
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 startServer()

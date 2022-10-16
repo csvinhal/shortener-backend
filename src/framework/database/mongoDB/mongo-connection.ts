@@ -1,15 +1,18 @@
 import mongoose from 'mongoose'
 import config from '../../../config/envs'
 
-export class MongoConnection {
-  static connect = async () => {
+export default function MongoConnection(): { connect: () => Promise<void> } {
+  const connect = async (): Promise<void> => {
     try {
-      const connection = await mongoose.connect(config.databaseURL)
+      await mongoose.connect(config.databaseURL)
       console.info('Connected to MongoDB!')
-      return connection.connection.db
     } catch (e) {
-      console.error(`Error in MongoDb connection: ${e}`)
-      return mongoose.disconnect()
+      console.error(`Error in MongoDb connection`)
+      await mongoose.disconnect()
     }
+  }
+
+  return {
+    connect,
   }
 }

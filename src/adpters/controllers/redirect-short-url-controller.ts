@@ -2,25 +2,26 @@ import { Request, Response } from 'express'
 import { GetShortUrl } from '../../use-cases/get-short-url/get-short-url'
 
 export class RedirectShortUrlController {
-  constructor(private getShortUrl: GetShortUrl) {}
+  constructor(private readonly getShortUrl: GetShortUrl) {}
 
-  async handle(request: Request, response: Response): Promise<Response | void> {
+  async handle(request: Request, response: Response): Promise<void> {
     const { slug } = request.params
     try {
       const getShortUrlResponse = await this.getShortUrl.execute(slug)
 
       if (getShortUrlResponse.isLeft()) {
-        return response
+        response
           .status(404)
           .json({
             message: getShortUrlResponse.value.message,
           })
           .send()
+        return
       }
 
       return response.redirect(getShortUrlResponse.value.url)
     } catch (error) {
-      return response.status(404).send()
+      response.status(404).send()
     }
   }
 }

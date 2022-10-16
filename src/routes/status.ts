@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-export default (app: Router) => {
+export default (app: Router): void => {
   app.get('/status', (_, res) => {
     res.status(200).end()
   })
