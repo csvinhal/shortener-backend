@@ -1,10 +1,10 @@
 import { Router } from "express";
-import url from "./url";
-// import status from "./status";
+import short from "./short";
+import status from "./status";
 
 export default () => {
   const router = Router();
-  url(router);
-  // status(app);
+  status(router);
+  short(router);
   return router;
 };
