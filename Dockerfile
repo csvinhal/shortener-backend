@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY package.json yarn.lock tsconfig.json ./
 
-RUN npm install typescript@4.8.4 -g && yarn install --frozen-lockfile --production=true && yarn cache clean
+RUN yarn install --frozen-lockfile --production=true && yarn cache clean
 
 COPY src src
 
