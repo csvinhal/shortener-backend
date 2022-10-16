@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { GetShortUrl } from "../../use-cases/get-short-url/get-short-url";
 
-export class GetShortUrlController {
+export class RedirectShortUrlController {
   constructor(private getShortUrl: GetShortUrl) {}
 
   async handle(request: Request, response: Response): Promise<Response | void> {
@@ -18,7 +18,7 @@ export class GetShortUrlController {
           .send();
       }
 
-      return response.status(200).json({ ...getShortUrlResponse.value });
+      return response.redirect(getShortUrlResponse.value.url);;
     } catch (error) {
       return response.status(404).send();
     }
