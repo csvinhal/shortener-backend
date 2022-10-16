@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetShortUrl } from "./get-short-url";
+import { GetShortUrl } from "../../use-cases/get-short-url/get-short-url";
 
 export class GetShortUrlController {
   constructor(private getShortUrl: GetShortUrl) {}
