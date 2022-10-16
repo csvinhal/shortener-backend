@@ -1,9 +1,9 @@
-import { Document, model, Schema } from "mongoose";
+import { Document, model, Schema } from 'mongoose'
 
 export interface IShortUrl {
-  _id: string;
-  slug: string;
-  url: string;
+  _id: string
+  slug: string
+  url: string
 }
 
 const ShortUrl = new Schema(
@@ -15,11 +15,11 @@ const ShortUrl = new Schema(
     },
     url: {
       type: String,
-      required: [true, "Url not informed."],
+      required: [true, 'Url not informed.'],
       index: true,
     },
   },
-  { timestamps: true }
-);
+  { timestamps: true },
+)
 
-export default model<IShortUrl & Document>("ShortUrl", ShortUrl);
+export default model<IShortUrl & Document>('ShortUrl', ShortUrl)

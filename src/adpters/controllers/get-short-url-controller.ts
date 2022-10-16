@@ -1,13 +1,13 @@
-import { Request, Response } from "express";
-import { GetShortUrl } from "../../use-cases/get-short-url/get-short-url";
+import { Request, Response } from 'express'
+import { GetShortUrl } from '../../use-cases/get-short-url/get-short-url'
 
 export class GetShortUrlController {
   constructor(private getShortUrl: GetShortUrl) {}
 
   async handle(request: Request, response: Response): Promise<Response | void> {
-    const { slug } = request.params;
+    const { slug } = request.params
     try {
-      const getShortUrlResponse = await this.getShortUrl.execute(slug);
+      const getShortUrlResponse = await this.getShortUrl.execute(slug)
 
       if (getShortUrlResponse.isLeft()) {
         return response
@@ -15,12 +15,12 @@ export class GetShortUrlController {
           .json({
             message: getShortUrlResponse.value.message,
           })
-          .send();
+          .send()
       }
 
-      return response.status(200).json({ ...getShortUrlResponse.value });
+      return response.status(200).json({ ...getShortUrlResponse.value })
     } catch (error) {
-      return response.status(404).send();
+      return response.status(404).send()
     }
   }
 }

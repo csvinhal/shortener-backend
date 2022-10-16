@@ -1,4 +1,4 @@
 export interface ICreateShortUrlDto {
-    slug: string
-    url: string
+  slug: string
+  url: string
 }
