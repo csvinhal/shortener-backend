@@ -1,26 +1,24 @@
-import { Request, Response } from 'express'
+import { Request } from 'express'
+import { Controller } from '../../core/controller'
+import { fail, HttpResponse, notFound, ok } from '../../core/http-response'
+import { IShortUrlData } from '../../entities/ishort-url-data'
 import { GetShortUrl } from '../../use-cases/get-short-url/get-short-url'
 
-export class GetShortUrlController {
+export class GetShortUrlController implements Controller {
   constructor(private readonly getShortUrl: GetShortUrl) {}
 
-  async handle(request: Request, response: Response): Promise<Response> {
-    const { slug } = request.params
+  async handle(request: Request): Promise<HttpResponse> {
     try {
+      const { slug } = request.params
       const getShortUrlResponse = await this.getShortUrl.execute(slug)
 
       if (getShortUrlResponse.isLeft()) {
-        return response
-          .status(404)
-          .json({
-            message: getShortUrlResponse.value.message,
-          })
-          .send()
+        return notFound(getShortUrlResponse.value)
       }
 
-      return response.status(200).json({ ...getShortUrlResponse.value })
+      return ok<IShortUrlData>(getShortUrlResponse.value)
     } catch (error) {
-      return response.status(404).send()
+      return fail(error as Error)
     }
   }
 }

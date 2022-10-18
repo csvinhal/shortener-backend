@@ -1,6 +1,6 @@
-import { IShortUrlData } from '../../../../entities/ishort-url-data'
-import { ShortUrl } from '../../../../entities/short-url'
-import { IShortUrlRepository } from '../../../../repositories/ishort-url-repository'
+import { IShortUrlData } from '../../../entities/ishort-url-data'
+import { ShortUrl } from '../../../entities/short-url'
+import { IShortUrlRepository } from '../../../repositories/ishort-url-repository'
 import ShortUrlModel from '../models/short-url'
 
 export class MongoShortUrlRepository implements IShortUrlRepository {

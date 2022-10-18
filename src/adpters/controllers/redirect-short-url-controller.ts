@@ -1,27 +1,28 @@
-import { Request, Response } from 'express'
+import { Request } from 'express'
+import { Controller } from '../../core/controller'
+import {
+  fail,
+  HttpResponse,
+  notFound,
+  redirect,
+} from '../../core/http-response'
 import { GetShortUrl } from '../../use-cases/get-short-url/get-short-url'
 
-export class RedirectShortUrlController {
+export class RedirectShortUrlController implements Controller {
   constructor(private readonly getShortUrl: GetShortUrl) {}
 
-  async handle(request: Request, response: Response): Promise<void> {
+  async handle(request: Request): Promise<HttpResponse> {
     const { slug } = request.params
     try {
       const getShortUrlResponse = await this.getShortUrl.execute(slug)
 
       if (getShortUrlResponse.isLeft()) {
-        response
-          .status(404)
-          .json({
-            message: getShortUrlResponse.value.message,
-          })
-          .send()
-        return
+        return notFound(getShortUrlResponse.value)
       }
 
-      return response.redirect(getShortUrlResponse.value.url)
+      return redirect(getShortUrlResponse.value.url)
     } catch (error) {
-      response.status(404).send()
+      return fail(error as Error)
     }
   }
 }

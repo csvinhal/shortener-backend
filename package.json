@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc --project tsconfig.build.json",
-    "start": "node dist/app.js",
+    "start": "node dist/external/service/app.js",
     "dev": "nodemon",
     "lint": "eslint --ext .ts src/",
     "test": "jest"

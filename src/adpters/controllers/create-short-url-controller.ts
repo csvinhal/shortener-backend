@@ -1,21 +1,23 @@
-import { Request, Response } from 'express'
+import { Request } from 'express'
 import { nanoid } from 'nanoid'
+import { Controller } from '../../core/controller'
+import {
+  clientError,
+  created,
+  fail,
+  HttpResponse,
+} from '../../core/http-response'
 import { CreateShortUrl } from '../../use-cases/create-short-url/create-short-url'
 
-export class CreateShortUrlController {
+export class CreateShortUrlController implements Controller {
   constructor(private readonly createShortUrl: CreateShortUrl) {}
 
-  async handle(request: Request, response: Response): Promise<Response> {
+  async handle(request: Request): Promise<HttpResponse> {
     try {
       const { slug, url } = request.body
 
       if (!url) {
-        return response
-          .status(400)
-          .json({
-            message: 'Missing parameter: url',
-          })
-          .send()
+        return clientError(new Error('Missing parameter: url'))
       }
 
       const createShortUrlResponse = await this.createShortUrl.execute({
@@ -24,22 +26,12 @@ export class CreateShortUrlController {
       })
 
       if (createShortUrlResponse.isLeft()) {
-        return response
-          .status(400)
-          .json({
-            message: createShortUrlResponse.value.message,
-          })
-          .send()
+        return clientError(createShortUrlResponse.value)
       }
 
-      return response.status(201).send()
+      return created()
     } catch (e) {
-      return response
-        .status(400)
-        .json({
-          message: (e as Error).message || 'Unexpected error.',
-        })
-        .send()
+      return fail(e as Error)
     }
   }
 }

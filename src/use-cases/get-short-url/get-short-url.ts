@@ -1,5 +1,6 @@
-import { IShortUrlRepository } from '../../repositories/ishort-url-repository'
 import { left, right } from '../../core/either'
+import { IShortUrlRepository } from '../../repositories/ishort-url-repository'
+import { SlugNotFoundError } from './errors/slug-not-found'
 import { GetShortUrlResponse } from './get-short-url-response'
 import { IGetShortUrl } from './iget-short-url'
 
@@ -10,7 +11,7 @@ export class GetShortUrl implements IGetShortUrl {
     const shotUrl = await this.shortUrlRepository.findBySlug(slug)
 
     if (shotUrl == null) {
-      return left(new Error('Url not found'))
+      return left(new SlugNotFoundError(slug))
     }
 
     return right(shotUrl)

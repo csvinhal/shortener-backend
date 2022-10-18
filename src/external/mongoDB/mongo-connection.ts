@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import config from '../../../config/envs'
+import config from '../../config/envs'
 
 export default function MongoConnection(): { connect: () => Promise<void> } {
   const connect = async (): Promise<void> => {

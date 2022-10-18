@@ -1,13 +1,13 @@
 import express from 'express'
-import env from './config/envs'
-import setupMiddleware from './config/middleware'
-import setupRoutes from './config/routes'
-import MongoConnection from './framework/database/mongoDB/mongo-connection'
+import env from '../../config/envs'
+import setupMiddleware from './middlewares/middleware'
+import MongoConnection from '../mongoDB/mongo-connection'
+import { router } from './routes'
 
 async function startServer(): Promise<void> {
   const app = express()
   setupMiddleware(app)
-  setupRoutes(app)
+  app.use(router)
 
   await MongoConnection().connect()
 
