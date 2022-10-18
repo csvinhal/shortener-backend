@@ -1,5 +1,5 @@
 import { IShortUrlRepository } from '../../repositories/ishort-url-repository'
-import { left, right } from '../../shared/either'
+import { left, right } from '../../core/either'
 import { GetShortUrlResponse } from './get-short-url-response'
 import { IGetShortUrl } from './iget-short-url'
 

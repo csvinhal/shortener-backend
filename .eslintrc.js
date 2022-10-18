@@ -2,12 +2,9 @@ module.exports = {
   env: {
     es2021: true,
     node: true,
+    jest: true
   },
-  extends: [
-    'standard-with-typescript',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['standard-with-typescript', 'plugin:prettier/recommended'],
   parser: '@typescript-eslint/parser',
   overrides: [],
   parserOptions: {
@@ -17,6 +14,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
+    'prettier/prettier': 'error',
     '@typescript-eslint/no-misused-promises': [
       'error',
       {

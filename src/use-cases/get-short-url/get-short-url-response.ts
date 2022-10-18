@@ -1,4 +1,5 @@
+import { Either } from '../../core/either'
 import { IShortUrlData } from '../../entities/ishort-url-data'
-import { Either } from '../../shared/either'
+import { UrlNotFoundError } from './errors/url-not-found'
 
-export type GetShortUrlResponse = Either<Error, IShortUrlData>
+export type GetShortUrlResponse = Either<UrlNotFoundError, IShortUrlData>

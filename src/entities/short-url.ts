@@ -1,36 +1,25 @@
-import { Either, left, right } from '../shared/either'
-import { IShortUrlData } from './ishort-url-data'
+import { Either, right } from '../core/either'
+import { Entity } from '../core/entity'
+import { InvalidSlugError } from './errors/invalid-slug-error'
+import { InvalidUrlError } from './errors/invalid-url-error'
+import { Slug } from './slug'
+import { Url } from './url'
 
-export class ShortUrl {
-  private static message: string
-  public readonly slug: string
-  public readonly url: string
+interface IShortUrlData {
+  slug: Slug
+  url: Url
+}
 
-  constructor(slug: string, url: string) {
-    this.slug = slug
-    this.url = url
+export class ShortUrl extends Entity<IShortUrlData> {
+  constructor(props: IShortUrlData, id?: string) {
+    super(props, id)
     Object.freeze(this)
   }
 
-  static validate(url: string): boolean | string {
-    if (!url) {
-      try {
-        return !!new URL(url)
-      } catch (e) {
-        ShortUrl.message = 'Url is not valid!'
-        return false
-      }
-    }
-    return true
-  }
-
-  static create(urlData: IShortUrlData): Either<Error, ShortUrl> {
-    const { slug, url } = urlData
-
-    if (!ShortUrl.validate(url)) {
-      return left(new Error(ShortUrl.message))
-    }
-
-    return right(new ShortUrl(slug, url))
+  static create(
+    shortUrlData: IShortUrlData,
+    id?: string,
+  ): Either<InvalidSlugError | InvalidUrlError, ShortUrl> {
+    return right(new ShortUrl(shortUrlData, id))
   }
 }
