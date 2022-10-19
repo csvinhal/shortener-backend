@@ -16,6 +16,14 @@ export class ShortUrl extends Entity<IShortUrlData> {
     Object.freeze(this)
   }
 
+  get slug(): string {
+    return this.props.slug.value
+  }
+
+  get url(): string {
+    return this.props.url.value
+  }
+
   static create(
     shortUrlData: IShortUrlData,
     id?: string,

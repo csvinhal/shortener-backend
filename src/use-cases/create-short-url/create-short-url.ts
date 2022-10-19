@@ -4,6 +4,7 @@ import { Slug } from '../../entities/slug'
 import { Url } from '../../entities/url'
 import { IShortUrlRepository } from '../../repositories/ishort-url-repository'
 import { CreateShortUrlResponse } from './create-short-url-response'
+import { SlugAlreadyExistsError } from './errors/slug-already-exists'
 import { ICreateShortUrl } from './icreate-short-url'
 import { ICreateShortUrlDto } from './icreate-short-url-dto'
 
@@ -37,7 +38,7 @@ export class CreateShortUrl implements ICreateShortUrl {
     const slugAlreadyExists = await this.shortUrlRepository.slugExists(slug)
 
     if (slugAlreadyExists) {
-      throw new Error('Slug already in use.')
+      return left(new SlugAlreadyExistsError(shortUrlOrError.value.slug))
     }
 
     const newShortUrl = await this.shortUrlRepository.create(
