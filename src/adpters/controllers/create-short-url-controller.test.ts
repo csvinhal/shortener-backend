@@ -21,4 +21,15 @@ describe('Create short url controller', () => {
 
     expect(response.status).toBe(200)
   })
+
+  it('should return error if validation fail', async () => {
+    const response = await request(app)
+      .post('/short')
+      .set('Accept', 'application/json')
+      .send({
+        url: '',
+      })
+
+    expect(response.status).toBe(400)
+  })
 })
