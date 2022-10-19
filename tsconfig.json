@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {                 
+  "compilerOptions": {
     "target": "ES2017",
     "module": "CommonJS",
     "outDir": "./dist",
@@ -11,10 +11,13 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true,                
-    "allowJs": true,       
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
     "noImplicitAny": false,
     "resolveJsonModule": true
+  },
+  "ts-node": {
+    "swc": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]
