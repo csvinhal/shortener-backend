@@ -1,13 +1,8 @@
-import type { JestConfigWithTsJest } from 'ts-jest'
-
-import { defaults as tsjPreset } from 'ts-jest/presets'
-
 export default {
-   collectCoverage: true,
+  collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!src/**/errors/*.ts'],
   coverageDirectory: 'coverage',
-  coverageProvider: 'v8',
   transform: {
-    ...tsjPreset.transform,
+    '^.+\\.(t|j)s?$': ['@swc/jest'],
   },
-} as JestConfigWithTsJest
+}
