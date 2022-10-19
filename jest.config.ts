@@ -5,4 +5,6 @@ export default {
   transform: {
     '^.+\\.(t|j)s?$': ['@swc/jest'],
   },
+  preset: '@shelf/jest-mongodb',
+  setupFiles: ['dotenv/config']
 }

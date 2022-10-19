@@ -5,11 +5,9 @@ import { makeGetShortUrlController } from '../factories/get-short-url-controller
 import { makeRedirectShortUrlController } from '../factories/redirect-short-url-controller-factory'
 
 export default (app: Router): void => {
-  app.get('/short/:slug', () => adaptRoute(makeCreateShortUrlController()))
+  app.get('/short/:slug', adaptRoute(makeGetShortUrlController()))
 
-  app.get('/short/redirect/:slug', () =>
-    adaptRoute(makeGetShortUrlController()),
-  )
+  app.get('/short/redirect/:slug', adaptRoute(makeRedirectShortUrlController()))
 
-  app.post('/short', () => adaptRoute(makeRedirectShortUrlController()))
+  app.post('/short', adaptRoute(makeCreateShortUrlController()))
 }

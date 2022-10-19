@@ -1,12 +1,8 @@
 import { Request } from 'express'
 import { nanoid } from 'nanoid'
 import { Controller } from '../../core/controller'
-import {
-  clientError,
-  created,
-  fail,
-  HttpResponse,
-} from '../../core/http-response'
+import { clientError, fail, HttpResponse, ok } from '../../core/http-response'
+import { IShortUrlData } from '../../entities/ishort-url-data'
 import { CreateShortUrl } from '../../use-cases/create-short-url/create-short-url'
 
 export class CreateShortUrlController implements Controller {
@@ -29,7 +25,7 @@ export class CreateShortUrlController implements Controller {
         return clientError(createShortUrlResponse.value)
       }
 
-      return created()
+      return ok<IShortUrlData>(createShortUrlResponse.value)
     } catch (e) {
       return fail(e as Error)
     }

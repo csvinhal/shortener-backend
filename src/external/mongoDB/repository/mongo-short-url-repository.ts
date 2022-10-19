@@ -1,3 +1,4 @@
+import { ShortUrlMapper } from '../../../adpters/mappers/ShortUrlMapper'
 import { IShortUrlData } from '../../../entities/ishort-url-data'
 import { ShortUrl } from '../../../entities/short-url'
 import { IShortUrlRepository } from '../../../repositories/ishort-url-repository'
@@ -11,8 +12,10 @@ export class MongoShortUrlRepository implements IShortUrlRepository {
   }
 
   async create(shortUrl: ShortUrl): Promise<IShortUrlData> {
-    const created = await ShortUrlModel.create(shortUrl)
+    const data = await ShortUrlMapper.toPersistence(shortUrl)
+    const created = await ShortUrlModel.create(data)
     return {
+      id: created._id,
       slug: created.slug,
       url: created.url,
     }
@@ -20,12 +23,12 @@ export class MongoShortUrlRepository implements IShortUrlRepository {
 
   async findBySlug(slug: string): Promise<IShortUrlData | null> {
     const shortUrl = await ShortUrlModel.findOne({ slug })
-
     return shortUrl
-      ? {
+      ? ShortUrlMapper.toDomain({
+          _id: shortUrl._id,
           slug: shortUrl.slug,
           url: shortUrl.url,
-        }
+        })
       : null
   }
 }

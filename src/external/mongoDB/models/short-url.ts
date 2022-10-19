@@ -1,6 +1,6 @@
 import { Document, model, Schema } from 'mongoose'
 
-export interface IShortUrl {
+export interface IShortUrlModel {
   _id: string
   slug: string
   url: string
@@ -22,4 +22,4 @@ const ShortUrl = new Schema(
   { timestamps: true },
 )
 
-export default model<IShortUrl & Document>('ShortUrl', ShortUrl)
+export default model<IShortUrlModel & Document>('ShortUrl', ShortUrl)
