@@ -3,7 +3,7 @@ services:
     build: .
     container_name: shortener-service
     environment:
-      MONGODB_URI: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@mongo:27017/
+      MONGO_URL: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@mongo:27017/
       PORT: 80
     ports: 
       - 80:80
