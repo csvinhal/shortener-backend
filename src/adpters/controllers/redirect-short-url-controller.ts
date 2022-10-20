@@ -1,4 +1,3 @@
-import { Request } from 'express'
 import { Controller } from '../../core/controller'
 import {
   fail,
@@ -8,11 +7,16 @@ import {
 } from '../../core/http-response'
 import { GetShortUrl } from '../../use-cases/get-short-url/get-short-url'
 
+interface RedirectShortUrlControllerRequest {
+  slug: string
+}
 export class RedirectShortUrlController implements Controller {
   constructor(private readonly getShortUrl: GetShortUrl) {}
 
-  async handle(request: Request): Promise<HttpResponse> {
-    const { slug } = request.params
+  async handle(
+    request: RedirectShortUrlControllerRequest,
+  ): Promise<HttpResponse> {
+    const { slug } = request
     try {
       const getShortUrlResponse = await this.getShortUrl.execute(slug)
 

@@ -1,16 +1,22 @@
-import { Request } from 'express'
 import { nanoid } from 'nanoid'
 import { Controller } from '../../core/controller'
 import { clientError, fail, HttpResponse, ok } from '../../core/http-response'
 import { IShortUrlData } from '../../entities/ishort-url-data'
 import { CreateShortUrl } from '../../use-cases/create-short-url/create-short-url'
 
+interface ICreateShortUrlControllerRequest {
+  slug: string
+  url: string
+}
+
 export class CreateShortUrlController implements Controller {
   constructor(private readonly createShortUrl: CreateShortUrl) {}
 
-  async handle(request: Request): Promise<HttpResponse> {
+  async handle(
+    request: ICreateShortUrlControllerRequest,
+  ): Promise<HttpResponse> {
     try {
-      const { slug, url } = request.body
+      const { slug, url } = request
 
       if (!url) {
         return clientError(new Error('Missing parameter: url'))

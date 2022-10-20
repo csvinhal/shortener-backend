@@ -31,5 +31,6 @@ describe('Create short url controller', () => {
       })
 
     expect(response.status).toBe(400)
+    expect(response.body.error).toBe('Missing parameter: url')
   })
 })
