@@ -17,12 +17,17 @@ export const adaptRoute = (controller: Controller) => {
         .send()
     }
     if (httpResponse.statusCode === 302) {
-      return response.redirect(302, httpResponse.url as string)
+      let url = httpResponse.url as string
+      if (!url.startsWith('http') || !url.startsWith('https')) {
+        url = `http://${url}`
+      }
+
+      return response.redirect(302, url)
     } else {
       return response
         .status(httpResponse.statusCode)
         .json({
-          error: httpResponse.body.error,
+          error: httpResponse?.body?.error,
         })
         .send()
     }

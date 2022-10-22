@@ -20,6 +20,8 @@ WORKDIR /app
 COPY --from=devDependencies /app/ .
 COPY . .
 RUN yarn build
+
+# --------------------------------------------------------------------------
 FROM ${REMOTE_IMAGE} AS runtime
 COPY --chown=node:node --from=build /app/node_modules /home/node/app/node_modules/
 COPY --from=build --chown=node:node /app/dist /home/node/app/dist/

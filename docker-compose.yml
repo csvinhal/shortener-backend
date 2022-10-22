@@ -2,6 +2,8 @@ services:
   service:
     build: .
     container_name: shortener-service
+    depends_on:
+      - mongo
     environment:
       MONGO_URL: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@mongo:27017/
       PORT: 80
@@ -22,6 +24,8 @@ services:
       - /home/csvinhal/Documents/Development/Docker/Volumes/MongoDB:/data/db
   mongo-express:
     container_name: shortener-mongo-express
+    depends_on:
+      - mongo
     image: mongo-express
     restart: always
     ports:
